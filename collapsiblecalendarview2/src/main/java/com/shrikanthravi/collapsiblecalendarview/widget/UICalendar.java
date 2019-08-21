@@ -334,6 +334,16 @@ public abstract class UICalendar extends LinearLayout {
         mBtnNextWeek.setImageDrawable(buttonRightDrawable);
     }
 
+    public void setButtonLeftVisibility(int visibility) {
+        mBtnPrevMonth.setVisibility(visibility);
+        mBtnPrevWeek.setVisibility(visibility);
+    }
+
+    public void setButtonRightVisibility(int visibility) {
+        mBtnNextMonth.setVisibility(visibility);
+        mBtnNextWeek.setVisibility(visibility);
+    }
+
     public Day getSelectedItem() {
         return mSelectedItem;
     }
