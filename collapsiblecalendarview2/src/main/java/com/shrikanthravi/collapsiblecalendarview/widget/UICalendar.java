@@ -344,6 +344,10 @@ public abstract class UICalendar extends LinearLayout {
         mBtnNextWeek.setVisibility(visibility);
     }
 
+    public void setMonthAndYearVisibility(int visibility) {
+        mTxtTitle.setVisibility(visibility);
+    }
+
     public Day getSelectedItem() {
         return mSelectedItem;
     }
