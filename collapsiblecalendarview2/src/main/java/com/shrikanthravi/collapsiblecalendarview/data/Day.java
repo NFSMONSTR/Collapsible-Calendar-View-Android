@@ -62,6 +62,17 @@ public class Day implements Parcelable{
             return new Day[size];
         }
     };
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Day day = (Day) o;
+        return (day.mMonth==mMonth && day.mDay==mDay && day.mYear==mYear);
+    }
+    @Override
+    public int hashCode() {
+        return mDay + (mMonth << 8) + (mYear << 16);
+    }
 
 
 }

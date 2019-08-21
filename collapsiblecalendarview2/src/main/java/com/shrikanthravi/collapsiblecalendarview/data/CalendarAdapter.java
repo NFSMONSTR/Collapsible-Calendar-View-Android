@@ -3,6 +3,7 @@ package com.shrikanthravi.collapsiblecalendarview.data;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import com.shrikanthravi.collapsiblecalendarview.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class CalendarAdapter {
 
     List<Day> mItemList = new ArrayList<>();
     List<View> mViewList = new ArrayList<>();
-    List<Event> mEventList = new ArrayList<>();
+    public HashMap<Day, Pair<Integer,Integer>> mEventList = new HashMap<>();
 
     public CalendarAdapter(Context context, Calendar cal) {
         this.mCal = (Calendar) cal.clone();
@@ -57,8 +59,8 @@ public class CalendarAdapter {
         return mCal;
     }
 
-    public void addEvent(Event event) {
-        mEventList.add(event);
+    public void addEvent(Day day, int colorBg, int colorFg) {
+        mEventList.put(day,Pair.create(colorBg,colorFg));
     }
 
     public void refresh() {
@@ -121,7 +123,7 @@ public class CalendarAdapter {
                 txtDay.setAlpha(0.3f);
             }
 
-            for (int j = 0; j < mEventList.size(); j++) {
+            /*for (int j = 0; j < mEventList.size(); j++) {
                 Event event = mEventList.get(j);
                 if (day.getYear() == event.getYear()
                         && day.getMonth() == event.getMonth()
@@ -129,7 +131,7 @@ public class CalendarAdapter {
                     imgEventTag.setVisibility(View.VISIBLE);
                     imgEventTag.setColorFilter(event.getColor(),PorterDuff.Mode.SRC_ATOP);
                 }
-            }
+            }*/
 
             mItemList.add(day);
             mViewList.add(view);

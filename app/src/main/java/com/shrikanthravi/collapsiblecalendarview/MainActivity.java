@@ -24,11 +24,18 @@ public class MainActivity extends AppCompatActivity {
 
         CollapsibleCalendar collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
         //To hide or show expand icon
-        collapsibleCalendar.setExpandIconVisible(true);
+        collapsibleCalendar.setExpandIconVisible(false);
+        collapsibleCalendar.expand(0);
+        collapsibleCalendar.setButtonLeftVisibility(View.GONE);
+        collapsibleCalendar.setButtonRightVisibility(View.GONE);
+        collapsibleCalendar.setMonthAndYearVisibility(View.GONE);
+        collapsibleCalendar.setFirstDayOfWeek(UICalendar.MONDAY);
+
+
         Calendar today=new GregorianCalendar();
         collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
         today.add(Calendar.DATE,1);
-        collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH),Color.BLUE);
+        collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH),Color.BLUE, Color.RED);
 
         System.out.println("Testing date "+collapsibleCalendar.getSelectedDay().getDay()+"/"+collapsibleCalendar.getSelectedDay().getMonth()+"/"+collapsibleCalendar.getSelectedDay().getYear());
         collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {

@@ -7,8 +7,10 @@ package com.shrikanthravi.collapsiblecalendarview.widget;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -165,9 +167,16 @@ public class CollapsibleCalendar extends UICalendar {
                 txtDay.setTextColor(getTextColor());
 
                 // set today's item
-                if (isToady(day)) {
+                /*if (isToady(day)) {
                     txtDay.setBackgroundDrawable(getTodayItemBackgroundDrawable());
                     txtDay.setTextColor(getTodayItemTextColor());
+                }*/
+
+                if (isEvent(day)) {
+                    Pair<Integer, Integer> colors = mAdapter.mEventList.get(day);
+                    getEventItemBackgroundDrawable().setColorFilter(colors.first, PorterDuff.Mode.SRC_ATOP);
+                    txtDay.setBackgroundDrawable(getEventItemBackgroundDrawable());
+                    txtDay.setTextColor(colors.second);
                 }
 
                 // set the selected item
@@ -268,7 +277,7 @@ public class CollapsibleCalendar extends UICalendar {
     public void onItemClicked(View view, Day day) {
         select(day);
 
-        Calendar cal = mAdapter.getCalendar();
+        /*Calendar cal = mAdapter.getCalendar();
 
         int newYear = day.getYear();
         int newMonth = day.getMonth();
@@ -287,7 +296,7 @@ public class CollapsibleCalendar extends UICalendar {
                 mListener.onMonthChange();
             }
             reload();
-        }
+        }*/
 
         if (mListener != null) {
             mListener.onItemClick(view);
@@ -306,13 +315,13 @@ public class CollapsibleCalendar extends UICalendar {
     }
 
     public void addEventTag(int numYear, int numMonth, int numDay) {
-        mAdapter.addEvent(new Event(numYear, numMonth, numDay,getEventColor()));
+        mAdapter.addEvent(new Day(numYear,numMonth,numDay),getEventColor(), getTextColor());
 
         reload();
     }
 
-    public void addEventTag(int numYear, int numMonth, int numDay,int color) {
-        mAdapter.addEvent(new Event(numYear, numMonth, numDay,color));
+    public void addEventTag(int numYear, int numMonth, int numDay,int colorBg, int colorFg) {
+        mAdapter.addEvent(new Day(numYear,numMonth,numDay),colorBg,colorFg);
 
 
         reload();
@@ -403,6 +412,10 @@ public class CollapsibleCalendar extends UICalendar {
                 && day.getYear() == todayCal.get(Calendar.YEAR)
                 && day.getMonth() == todayCal.get(Calendar.MONTH)
                 && day.getDay() == todayCal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public boolean isEvent(Day day) {
+        return mAdapter.mEventList.containsKey(day);
     }
 
     public int getSelectedItemPosition() {
