@@ -37,7 +37,7 @@ public class CollapsibleCalendar extends UICalendar {
     private CalendarAdapter mAdapter;
     private CalendarListener mListener;
 
-    private boolean expanded=false;
+    private boolean expanded = false;
 
     private int mInitHeight = 0;
 
@@ -63,12 +63,9 @@ public class CollapsibleCalendar extends UICalendar {
         super.init(context);
 
 
-
-            Calendar cal = Calendar.getInstance();
-            CalendarAdapter adapter = new CalendarAdapter(context, cal);
-            setAdapter(adapter);
-
-
+        Calendar cal = Calendar.getInstance();
+        CalendarAdapter adapter = new CalendarAdapter(context, cal);
+        setAdapter(adapter);
 
 
         // bind events
@@ -101,16 +98,15 @@ public class CollapsibleCalendar extends UICalendar {
             }
         });
 
-        expandIconView.setState(ExpandIconView.MORE,true);
+        expandIconView.setState(ExpandIconView.MORE, true);
 
 
         expandIconView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(expanded){
+                if (expanded) {
                     collapse(400);
-                }
-                else{
+                } else {
                     expand(400);
                 }
             }
@@ -122,7 +118,6 @@ public class CollapsibleCalendar extends UICalendar {
                 collapseTo(mCurrentWeekIndex);
             }
         });
-
 
 
     }
@@ -315,13 +310,13 @@ public class CollapsibleCalendar extends UICalendar {
     }
 
     public void addEventTag(int numYear, int numMonth, int numDay) {
-        mAdapter.addEvent(new Day(numYear,numMonth,numDay),getEventColor(), getTextColor());
+        mAdapter.addEvent(new Day(numYear, numMonth, numDay), getEventColor(), getTextColor());
 
         reload();
     }
 
-    public void addEventTag(int numYear, int numMonth, int numDay,int colorBg, int colorFg) {
-        mAdapter.addEvent(new Day(numYear,numMonth,numDay),colorBg,colorFg);
+    public void addEventTag(int numYear, int numMonth, int numDay, int colorBg, int colorFg) {
+        mAdapter.addEvent(new Day(numYear, numMonth, numDay), colorBg, colorFg);
 
 
         reload();
@@ -381,15 +376,23 @@ public class CollapsibleCalendar extends UICalendar {
         return mAdapter.getCalendar().get(Calendar.MONTH);
     }
 
+    public int getCurrentWeekIndex() {
+        return mCurrentWeekIndex;
+    }
+
+    public Calendar getCalendar() {
+        return mAdapter.getCalendar();
+    }
+
     public Day getSelectedDay() {
-        if (getSelectedItem()==null){
+        if (getSelectedItem() == null) {
             Calendar cal = Calendar.getInstance();
             int day = cal.get(Calendar.DAY_OF_MONTH);
             int month = cal.get(Calendar.MONTH);
             int year = cal.get(Calendar.YEAR);
             return new Day(
                     year,
-                    month+1,
+                    month + 1,
                     day);
         }
         return new Day(
@@ -491,7 +494,7 @@ public class CollapsibleCalendar extends UICalendar {
             startAnimation(anim);
         }
 
-        expandIconView.setState(ExpandIconView.MORE,true);
+        expandIconView.setState(ExpandIconView.MORE, true);
     }
 
     private void collapseTo(int index) {
@@ -558,16 +561,16 @@ public class CollapsibleCalendar extends UICalendar {
             startAnimation(anim);
         }
 
-        expandIconView.setState(ExpandIconView.LESS,true);
+        expandIconView.setState(ExpandIconView.LESS, true);
     }
 
     @Override
     public void setState(int state) {
         super.setState(state);
-        if(state == STATE_COLLAPSED) {
+        if (state == STATE_COLLAPSED) {
             expanded = false;
         }
-        if(state == STATE_EXPANDED) {
+        if (state == STATE_EXPANDED) {
             expanded = true;
         }
     }
@@ -614,14 +617,13 @@ public class CollapsibleCalendar extends UICalendar {
         void onWeekChange(int position);
     }
 
-    public void setExpandIconVisible(boolean visible){
-        if(visible){
+    public void setExpandIconVisible(boolean visible) {
+        if (visible) {
             expandIconView.setVisibility(VISIBLE);
-        }else {
+        } else {
             expandIconView.setVisibility(GONE);
         }
     }
-
 
 
 }
