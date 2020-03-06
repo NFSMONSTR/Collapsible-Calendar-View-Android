@@ -25,8 +25,8 @@ public class CalendarAdapter {
     private Calendar mCal;
     private LayoutInflater mInflater;
 
-    List<Day> mItemList = new ArrayList<>();
-    List<View> mViewList = new ArrayList<>();
+    public List<Day> mItemList = new ArrayList<>();
+    public List<View> mViewList = new ArrayList<>();
     public HashMap<Day, Pair<Integer,Integer>> mEventList = new HashMap<>();
 
     public CalendarAdapter(Context context, Calendar cal) {

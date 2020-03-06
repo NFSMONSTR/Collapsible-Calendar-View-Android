@@ -31,13 +31,14 @@ import com.shrikanthravi.collapsiblecalendarview.view.ExpandIconView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class CollapsibleCalendar extends UICalendar {
 
     private CalendarAdapter mAdapter;
     private CalendarListener mListener;
 
-    private boolean expanded = false;
+    private boolean expanded = true;
 
     private int mInitHeight = 0;
 
@@ -384,6 +385,10 @@ public class CollapsibleCalendar extends UICalendar {
         return mAdapter.getCalendar();
     }
 
+    public List<Day> getDays() {
+        return mAdapter.mItemList;
+    }
+
     public Day getSelectedDay() {
         if (getSelectedItem() == null) {
             Calendar cal = Calendar.getInstance();
@@ -497,7 +502,7 @@ public class CollapsibleCalendar extends UICalendar {
         expandIconView.setState(ExpandIconView.MORE, true);
     }
 
-    private void collapseTo(int index) {
+    public void collapseTo(int index) {
         if (getState() == STATE_COLLAPSED) {
             if (index == -1) {
                 index = mTableBody.getChildCount() - 1;
